@@ -1,0 +1,30 @@
+{
+  "i18n-ally.localesPaths": [
+    "src/locales",
+    "src/plugins/language",
+    "public/lib/UEditor/lang",
+    "public/lib/pdfjs-dist/web/locale",
+    "src/api/platform/international/language",
+    "src/views/platform/international/language",
+    "src/business/platform/bpmn/bpmn-js/i18n"
+  ],
+  //为了符合eslint的两个空格间隔原则
+  "editor.tabSize": 2,
+  //配置eslint
+  "files.autoSave":"off",
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  },
+  "eslint.enable": true, // 开启eslint检查
+  "eslint.run": "onSave",
+  // 控制是否将打开的编辑器显示为预览。预览编辑器将会重用至其被保留(例如，通过双击或编辑)，且其字体样式将为斜体。
+  "workbench.editor.enablePreview": false,
+  "search.exclude": {
+    "**/dist": true,
+    "**/node_modules": true,
+    "**/statics": true
+  },
+  "vue-i18n.i18nPaths": "src\\locales,dist\\lib\\UEditor\\lang,public\\lib\\UEditor\\lang,dist\\lib\\pdfjs-dist\\web\\locale,public\\lib\\pdfjs-dist\\web\\locale,src\\business\\platform\\bpmn\\bpmn-js\\i18n",
+  "i18n-ally.keystyle": "nested",
+  
+}
