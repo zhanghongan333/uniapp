@@ -12,14 +12,14 @@
       <u-button type="info">信息按钮</u-button>
       <u-button type="warning">警告按钮</u-button>
       <u-button type="error">危险按钮</u-button>
-      {{ userInfo.id }}--{{ info.id }}
+      {{ userInfo.id }}--{{ info.id }}--{{ $t('common.buttons.add') }}
     </view>
   </view>
 </template>
 
 <script>
 import Vue from 'vue'
-import { apiGetBanner } from '@/apis/index.js'
+import { apiGetBanner } from '@/api/index.js'
 import { mapState } from 'vuex'
 
 export default Vue.extend({
