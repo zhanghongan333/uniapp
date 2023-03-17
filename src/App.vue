@@ -1,17 +1,15 @@
 <script>
-import Vue from 'vue'
-export default Vue.extend({
-  mpType: 'app',
-  onLaunch() {
+export default {
+  onLaunch: function() {
     console.log('App Launch')
   },
-  onShow() {
+  onShow: function() {
     console.log('App Show')
   },
-  onHide() {
+  onHide: function() {
     console.log('App Hide')
   }
-})
+}
 </script>
 
 <style lang="scss">
