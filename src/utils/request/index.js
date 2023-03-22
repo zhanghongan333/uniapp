@@ -1,6 +1,6 @@
 import Request from './request.js'
 
-const baseUrl = 'http://localhost:3000'
+const baseUrl = 'https://192.168.3.230:20000/gateway/ibps'
 
 // #ifdef APP-PLUS || MP-WEIXIN
 // baseUrl = 'http://192.158.31.45'
