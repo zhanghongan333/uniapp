@@ -2342,6 +2342,14 @@
   optionalDependencies:
     "prettier" "^1.18.2 || ^2.0.0"
 
+<<<<<<< HEAD
+=======
+"@vue/composition-api@^1.7.0":
+  "integrity" "sha512-xDWoEtxGXhH9Ku3ROYX/rzhcpt4v31hpPU5zF3UeVC/qxA3dChmqU8zvTUYoKh3j7rzpNsoFOwqsWG7XPMlaFA=="
+  "resolved" "https://registry.npmmirror.com/@vue/composition-api/-/composition-api-1.7.1.tgz"
+  "version" "1.7.1"
+
+>>>>>>> d216923dfa0796b6fd8457e2690112a700e3cfde
 "@vue/shared@3.0.0":
   "integrity" "sha512-4XWL/avABGxU2E2ZF1eZq3Tj7fvksCMssDZUHOykBIMmh5d+KcAnQMC5XHMhtnA0NAvktYsA2YpdsVwVmhWzvA=="
   "resolved" "https://registry.npmmirror.com/@vue/shared/-/shared-3.0.0.tgz"
@@ -4072,7 +4080,11 @@
   dependencies:
     "browserslist" "^4.21.4"
 
+<<<<<<< HEAD
 "core-js@^3.8.3", "core-js@3.8.3":
+=======
+"core-js@^3.4.1", "core-js@^3.8.3", "core-js@3.8.3":
+>>>>>>> d216923dfa0796b6fd8457e2690112a700e3cfde
   "integrity" "sha512-KPYXeVZYemC2TkNEkX/01I+7yd+nX3KddKwZ1Ww7SKWdI2wQprSgLmrTddT8nw92AjEklTsPBoSdQBhbI1bQ6Q=="
   "resolved" "https://registry.npmmirror.com/core-js/-/core-js-3.8.3.tgz"
   "version" "3.8.3"
@@ -4215,6 +4227,11 @@
     "public-encrypt" "^4.0.0"
     "randombytes" "^2.0.0"
     "randomfill" "^1.0.3"
+
+"crypto-js@^4.1.1":
+  "integrity" "sha512-o2JlM7ydqd3Qk9CA0L4NL6mTzU2sdx96a+oOfPu8Mkl/PK51vSyoi8/rQ8NknZtk44vq15lmhAj9CIAGwgeWKw=="
+  "resolved" "https://registry.npmmirror.com/crypto-js/-/crypto-js-4.1.1.tgz"
+  "version" "4.1.1"
 
 "css-declaration-sorter@^6.3.1":
   "integrity" "sha512-fBffmak0bPAnyqc/HO8C3n2sHrp9wcqQz6ES9koRF2/mLOVAx9zIQ3Y7R29sYCteTPqMCwns4WYQoCX91Xl3+w=="
@@ -7096,6 +7113,11 @@
     "whatwg-url" "^7.0.0"
     "ws" "^7.0.0"
     "xml-name-validator" "^3.0.0"
+
+"jsencrypt@^3.3.2":
+  "integrity" "sha512-arQR1R1ESGdAxY7ZheWr12wCaF2yF47v5qpB76TtV64H1pyGudk9Hvw8Y9tb/FiTIaaTRUyaSnm5T/Y53Ghm/A=="
+  "resolved" "https://registry.npmmirror.com/jsencrypt/-/jsencrypt-3.3.2.tgz"
+  "version" "3.3.2"
 
 "jsesc@^2.5.1":
   "integrity" "sha512-OYu7XEzjkCQ3C5Ps3QIZsQfNpqoJyZZA99wd9aWd05NCtC5pWOkShK2mkL6HXQR6/Cy2lbNdPlZBpuQHXE63gA=="

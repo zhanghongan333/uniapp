@@ -1,31 +1,36 @@
 <template>
   <view class="content">
-    <image
-      class="logo"
-      src="../../static/logo.png"
-    />
     <view>
       <text class="title">{{ title }}</text>
-      <u-button @click="handleClick">默认按钮</u-button>
-      <u-button type="primary">主要按钮</u-button>
-      <u-button type="success">成功按钮</u-button>
-      <u-button type="info">信息按钮</u-button>
-      <u-button type="warning">警告按钮</u-button>
-      <u-button type="error">危险按钮</u-button>
-      {{ userInfo.id }}--{{ info.id }}--{{ $t('common.buttons.add') }}
+      <u-form
+        ref="uForm"
+        :model="form"
+      >
+        <u-form-item label="账号">
+          <u-input v-model="form.username" />
+        </u-form-item>
+        <u-form-item label="密码">
+          <u-input v-model="form.password" />
+        </u-form-item>
+      </u-form>
+      <u-button @click="submit">提交</u-button>
     </view>
   </view>
 </template>
 
 <script>
-import Vue from 'vue'
 import { apiGetBanner } from '@/api/index.js'
-import { mapState } from 'vuex'
+import { mapActions, mapState } from 'vuex'
+import { encryptData } from '@/plugins/encrypt'
 
-export default Vue.extend({
+export default {
   data() {
     return {
-      title: 'Hello',
+      title: '登录',
+      form: {
+        username: 'admin',
+        password: '1'
+      },
       userInfo: this.$store.getters.userInfo
     }
   },
@@ -39,13 +44,24 @@ export default Vue.extend({
     ])
   },
   methods: {
+    ...mapActions({
+      'login': 'chain/account/login'
+    }),
     handleClick() {
       apiGetBanner().then((res) => {
         console.log(res)
       })
+    },
+    submit() {
+      const data = { username: this.form.username }
+      data.password = encryptData(this.form.password)
+      console.log(data)
+      this.login({ form: data }).then(res => {
+        console.log(res)
+      })
     }
   }
-})
+}
 </script>
 
 <style>

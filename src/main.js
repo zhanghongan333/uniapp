@@ -9,12 +9,29 @@ Vue.use(uView)
 App.mpType = 'app'
 Vue.config.productionTip = false
 
-const app = new Vue({
-  store,
-  i18n,
-  ...App
-})
-app.$mount()
+// let instance = null
+// 页面渲染
+function render({ container } = {}) {
+  new Vue({
+    store,
+    i18n,
+    async mounted() {
+      await this.$store.dispatch('chain/account/load')
+    },
+    render: h => h(App)
+  }).$mount(container ? container.querySelector('#app') : '#app')
+}
+// const app = new Vue({
+//   store,
+//   i18n,
+//   async mounted() {
+//     await this.$store.dispatch('chain/account/load')
+//     console.log(this.$store, 'this.$store')
+//   },
+//   render: h => h(App)
+// })
+// app.$mount()
+render()
 // #endif
 
 // #ifdef VUE3
