@@ -73,6 +73,20 @@ export default {
     }) {
       state.encrypt = encrypt
       state.encryption = encryption
+    },
+    setAccount({ state, dispatch }, account) {
+      return new Promise(async resolve => {
+        state.account = account
+        // 持久化
+        await dispatch('chain/db/set', {
+          dbName: 'sys',
+          path: 'account',
+          value: account,
+          user: false
+        }, { root: true })
+        resolve()
+      })
     }
+
   }
 }

@@ -28,7 +28,7 @@ export default Vue.extend({
   },
   methods: {
     handleClick() {
-      uni.redirectTo({ url: '/views/home/index' })
+
     }
   }
 })

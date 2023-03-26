@@ -1,6 +1,9 @@
 import Request from './request.js'
-
-const baseUrl = 'https://192.168.3.230:20000/gateway/ibps'
+// 验权
+import { getToken } from '@/utils/auth'
+import { HEADER_TOKEN_KEY } from '@/constant'
+const baseUrl = 'http://lcvpn.f3322.net:3380/v353_singel'
+// 'https://192.168.3.230:20000/gateway/ibps'
 
 // #ifdef APP-PLUS || MP-WEIXIN
 // baseUrl = 'http://192.158.31.45'
@@ -15,6 +18,8 @@ const reqInterceptor = async options => {
   uni.showLoading({
     title: '加载中...'
   })
+  options.headers = {}
+  options.headers[HEADER_TOKEN_KEY] = getToken()
   return options
 }
 // 响应拦截

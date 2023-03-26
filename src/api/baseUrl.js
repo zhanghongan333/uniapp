@@ -1,6 +1,6 @@
 import store from '@/store'
-
-const API_OAUTH2_BASE_URL = '/oauth2/v3'
+// /oauth2/v3
+const API_OAUTH2_BASE_URL = ''
 
 const SINGLE = false
 export const SINGLE_APP = () => {

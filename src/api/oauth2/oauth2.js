@@ -4,7 +4,23 @@ import { merge } from 'lodash'
 import request from '@/utils/request'
 
 const GRANT_TYPE = 'authorization_code'
-
+var AccessToken = function(data) {
+  if (!(this instanceof AccessToken)) {
+    return new AccessToken(data)
+  }
+  this.data = data
+}
+/*!
+ * 检查AccessToken是否有效，检查规则为当前时间和过期时间进行对比
+ *
+ * Examples:
+ * ```
+ * token.isValid();
+ * ```
+ */
+AccessToken.prototype.isValid = function() {
+  return !!this.data.access_token && (new Date().getTime()) < (this.data.create_at + this.data.expires_in * 1000)
+}
 var wrapper = function(callback) {
   return function(err, data, res) {
     callback = callback || function() {}
@@ -27,9 +43,9 @@ var processToken = function(that, callback) {
     }
     data.create_at = createAt
     // 存储token
-    // that.saveToken(data.uid, data, function(err) {
-    //   callback(err, new AccessToken(data))
-    // })
+    that.saveToken(data.uid, data, function(err) {
+      callback(err, new AccessToken(data))
+    })
   }
 }
 
