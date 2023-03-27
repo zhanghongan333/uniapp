@@ -2,10 +2,13 @@ import Vue from 'vue'
 import App from './App.vue'
 import uView from 'uview-ui'
 import store from './store/index.js'
+import router from './router'
 
 import i18n from './i18n'
 // #ifndef VUE3
+Vue.use(router)
 Vue.use(uView)
+
 App.mpType = 'app'
 Vue.config.productionTip = false
 
