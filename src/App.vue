@@ -1,7 +1,8 @@
 <script>
+import { getToken } from '@/utils/auth'
 export default {
   onLaunch: function() {
-    if (!uni.getStorageSync('token')) {
+    if (!getToken()) {
       uni.navigateTo({ url: '/pages/login/index' })
     }
   },
