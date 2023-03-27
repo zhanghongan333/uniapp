@@ -8,8 +8,11 @@ export default {
       return new Promise(async(resolve, reject) => {
         login(form).then(async response => {
           const data = response.data
+          // 设置 用户解锁
           await dispatch('chain/lock/set', { lock: false }, { root: true })
+          // 更新token 信息
           await dispatch('updataTokenInfo', data)
+          // 设置 vuex 用户信息
           await dispatch('chain/user/setAccount', form.username, { root: true })
           // 结束
           resolve(data)
@@ -24,7 +27,17 @@ export default {
         resolve()
       })
     },
+    /**
+     * 更新token 用户信息
+     * @param {*} param0
+     * @param {*} data
+     */
     updataTokenInfo({ commit, dispatch }, data) {
+      // 设置 cookie 一定要存 uuid 和 token 两个 cookie
+      // 整个系统依赖这两个数据进行校验和存储
+      // uuid 是用户身份唯一标识 用户注册的时候确定 并且不可改变 不可重复
+      // token 代表用户当前登录状态 建议在网络请求中携带 token
+      // 如有必要 token 需要定时更新，默认保存一天
       updateToken(data)
       setUuid(data ? data.uid : null)
     }

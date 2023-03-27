@@ -1,5 +1,5 @@
 import { cloneDeep } from 'lodash'
-import { database as getDatabase, dbGet, dbSet } from '@/utils/util.db'
+import { database as getDatabase, dbGet, dbSet } from '@/utils/db'
 const router = ''
 export default {
   namespaced: true,

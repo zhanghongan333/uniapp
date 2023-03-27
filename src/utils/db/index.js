@@ -1,17 +1,16 @@
 
 import low from 'lowdb'
-import Memory from 'lowdb/adapters/Memory'
+import LocalStorage from './localStorage.js'
 import { getUuid } from '@/utils/auth'
 import { cloneDeep } from 'lodash'
 import { STORE_GLOBAL_KEY } from '@/constant'
 
-const adapter = new Memory(STORE_GLOBAL_KEY)
-console.log(adapter, 'adapter')
+const adapter = new LocalStorage(STORE_GLOBAL_KEY)
 const db = low(adapter)
 
 const ghostUuid = 'ghost-uuid'
-const StorageDefaults = uni.getStorageSync(STORE_GLOBAL_KEY)
-const defaults = {
+
+db.defaults({
   sys: {
     public: {},
     user: {
@@ -19,9 +18,7 @@ const defaults = {
     }
   },
   database: {}
-}
-
-db.defaults(StorageDefaults === '' ? defaults : StorageDefaults)
+})
   .write()
 
 export default db
@@ -73,7 +70,6 @@ export function dbSet({
     path,
     user
   }), value).write()
-  uni.setStorageSync(STORE_GLOBAL_KEY, adapter.defaultValue)
 }
 
 /**
