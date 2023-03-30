@@ -123,8 +123,9 @@ export const deepMerge = (target = {}, source = {}) => {
 /**
  * @description 获取当前页面路径
  */
-// export const page = () => {
-//   const pages = getCurrentPages()
-//   // 某些特殊情况下(比如页面进行redirectTo时的一些时机)，pages可能为空数组
-//   return `/${pages[pages.length - 1]?.route ?? ''}`
-// }
+export const page = () => {
+  // eslint-disable-next-line no-undef
+  const pages = getCurrentPages()
+  // 某些特殊情况下(比如页面进行redirectTo时的一些时机)，pages可能为空数组
+  return `/${pages[pages.length - 1]?.route ?? ''}`
+}

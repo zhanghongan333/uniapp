@@ -1,4 +1,5 @@
 import route from './route'
+import { getToken } from '@/utils/auth'
 // 配置白名单
 const whiteList = ['/pages/login/index']
 
@@ -11,7 +12,8 @@ const handleOverwirteRoute = () => {
     const original = uni[type]
     uni[type] = function(options = {}) {
       const { url: path } = options
-      if (!whiteList.includes(path) && !uni.getStorageSync('token')) {
+      console.log(getToken(), '2')
+      if (!whiteList.includes(path) && !getToken()) {
         // 判断是否存在token，不存在重定向到登录页
         uni.$e.route('/pages/login/index')
       } else {
@@ -29,7 +31,8 @@ const install = function(Vue, options) {
   // 路由拦截器
   uni.$e.routeIntercept = (routeConfig, resolve) => {
     const path = routeConfig.url.split('?')[0]
-    if (!whiteList.includes(path) && !uni.getStorageSync('token')) {
+    console.log(getToken(), '1')
+    if (!whiteList.includes(path) && !getToken()) {
       uni.$e.route('/pages/login/index')
       return
     }

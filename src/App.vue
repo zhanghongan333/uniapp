@@ -2,8 +2,11 @@
 import { getToken } from '@/utils/auth'
 export default {
   onLaunch: function() {
+    console.log(getToken(), 'getToken()')
     if (!getToken()) {
       uni.navigateTo({ url: '/pages/login/index' })
+    } else {
+      uni.navigateTo({ url: '/views/home/index' })
     }
   },
   onShow: function() {

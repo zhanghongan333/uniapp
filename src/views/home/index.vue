@@ -1,16 +1,20 @@
 <template>
   <view class="content">
     <view>
-      <text class="title">{{ title }}</text>
+      2
     </view>
+    <tabbar />
   </view>
 </template>
 
 <script>
-import Vue from 'vue'
 import { mapState } from 'vuex'
+import tabbar from '@/views/tabbar'
 
-export default Vue.extend({
+export default {
+  components: {
+    tabbar
+  },
   data() {
     return {
       title: '工作台',
@@ -31,7 +35,7 @@ export default Vue.extend({
 
     }
   }
-})
+}
 </script>
 
 <style>
