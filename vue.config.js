@@ -1,3 +1,4 @@
 module.exports = {
-  lintOnSave: true
+  lintOnSave: true,
+  transpileDependencies: ['uview-ui']
 }

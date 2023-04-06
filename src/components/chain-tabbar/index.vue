@@ -9,20 +9,10 @@
       @change="handlechangeTabbar"
     >
       <u-tabbar-item
-        text="首页"
-        icon="home"
-      />
-      <u-tabbar-item
-        text="放映厅"
-        icon="photo"
-      />
-      <u-tabbar-item
-        text="直播"
-        icon="play-right"
-      />
-      <u-tabbar-item
-        text="我的"
-        icon="account"
+        v-for="item in data"
+        :key="item.icon"
+        :text="item.text"
+        :icon="item.icon"
       />
     </u-tabbar>
   </view>
@@ -30,9 +20,29 @@
 
 <script>
 export default {
+  props: {
+    data: {
+      type: Array,
+      default: () => {
+        return []
+      }
+    },
+    name: {
+      type: Number,
+      default: 0
+    }
+  },
   data() {
     return {
       tabbar: 0
+    }
+  },
+  watch: {
+    name: {
+      handler: function(val, oldVal) {
+        this.tabbar = val
+      },
+      immediate: true
     }
   },
   methods: {
@@ -41,6 +51,11 @@ export default {
         return uni.$u.toast('请您先登录')
       } else {
         this.tabbar = name
+        uni.$emit('update-tabbar', name)
+        // uni.$e.route({
+        //   type: 'tab',
+        //   url: '/pages/login/index'
+        // })
       }
     }
 

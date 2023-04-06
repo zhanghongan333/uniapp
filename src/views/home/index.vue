@@ -3,25 +3,23 @@
     <view>
       2
     </view>
-    <tabbar />
   </view>
 </template>
 
 <script>
 import { mapState } from 'vuex'
-import tabbar from '@/views/tabbar'
-
 export default {
   components: {
-    tabbar
   },
   data() {
     return {
       title: '工作台',
-      userInfo: this.$store.getters.userInfo
+      userInfo: this.$store.getters.userInfo,
+      tabbar: 0
     }
   },
-  onLoad() {},
+  onLoad(option) {
+  },
   computed: {
     // ...mapState({
     //   userInfo: state => state.chain.user.info

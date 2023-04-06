@@ -56,7 +56,7 @@ export default {
       const data = { username: this.form.username }
       data.password = encryptData(this.form.password)
       this.login({ form: data }).then(res => {
-        uni.redirectTo({ url: '/views/home/index' })
+        uni.redirectTo({ url: '/views/layout/layout' })
       })
     }
   }

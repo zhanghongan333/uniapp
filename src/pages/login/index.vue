@@ -22,6 +22,7 @@
 import { apiGetBanner } from '@/api/index.js'
 import { mapActions, mapState } from 'vuex'
 import { encryptData } from '@/plugins/encrypt'
+import { getToken } from '@/utils/auth'
 
 export default {
   data() {
@@ -34,7 +35,14 @@ export default {
       userInfo: this.$store.getters.userInfo
     }
   },
-  onLoad() {},
+  onLoad() {
+    console.log(getToken(), 'getToken()')
+    if (!getToken()) {
+      uni.navigateTo({ url: '/pages/login/index' })
+    } else {
+      uni.navigateTo({ url: '/views/layout/layout' })
+    }
+  },
   computed: {
     // ...mapState({
     //   userInfo: state => state.chain.user.info
@@ -56,7 +64,7 @@ export default {
       const data = { username: this.form.username }
       data.password = encryptData(this.form.password)
       this.login({ form: data }).then(res => {
-        uni.redirectTo({ url: '/views/home/index' })
+        uni.redirectTo({ url: '/views/layout/layout' })
       })
     }
   }
