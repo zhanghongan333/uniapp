@@ -19,7 +19,7 @@ function render({ container } = {}) {
     i18n,
     ...App,
     async mounted() {
-      // await this.$store.dispatch('chain/account/load')
+      await this.$store.dispatch('chain/account/load')
     }
   }).$mount(container ? container.querySelector('#app') : '#app')
 }

@@ -5,7 +5,9 @@ export default {
     if (!getToken()) {
       uni.redirectTo({ url: '/pages/login/index' })
     } else {
-      uni.redirectTo({ url: '/views/layout/layout' })
+      uni.$e.route({ type: 'redirectTo',
+        url: '/views/layout/layout' })
+      // uni.redirectTo({ url: '/views/layout/layout' })
     }
   },
   onShow: function() {

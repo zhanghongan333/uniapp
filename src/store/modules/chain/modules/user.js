@@ -24,13 +24,42 @@ export default {
   },
   actions: {
     set({ state, dispatch }, info) {
-      state.info = info
+      return new Promise(async resolve => {
+        // store 赋值
+        state.info = info
+        // 持久化
+        await dispatch('chain/db/set', {
+          dbName: 'sys',
+          path: 'user.info',
+          value: info,
+          user: true
+        }, { root: true })
+        // end
+        resolve()
+      })
     },
     async init({
       state,
       dispatch
     }) {
       await dispatch('loadEncrypt')
+    },
+    /**
+     * @description 从数据库取用户数据
+     * @param {Object} state vuex state
+     */
+    get({ state, dispatch }) {
+      return new Promise(async resolve => {
+        // store 赋值
+        state.info = await dispatch('chain/db/get', {
+          dbName: 'sys',
+          path: 'user.info',
+          defaultValue: {},
+          user: true
+        }, { root: true })
+        // end
+        resolve()
+      })
     },
     async loadEncrypt({
       state, dispatch

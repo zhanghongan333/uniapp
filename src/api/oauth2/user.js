@@ -21,7 +21,16 @@ export function getEncrypt() {
     method: 'get'
   })
 }
-
+/**
+ *  根据用户名， 获取用户上下文信息
+ * @param {*} token
+ */
+export function getUserInfo(username) {
+  return request.request({
+    url: OAUTH2_URL() + '/user/context/default',
+    method: 'post'
+  })
+}
 export function login(params) {
   if (GRANT_TYPE === 'password_credentials') {
     return loginByPassword(params)

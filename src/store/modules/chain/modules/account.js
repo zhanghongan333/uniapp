@@ -23,6 +23,9 @@ export default {
     },
     load({ dispatch }) {
       return new Promise(async resolve => {
+        // DB -> store 加载用户名
+        await dispatch('chain/user/get', null, { root: true })
+        // DB -> store 加载用户初始化配置
         await dispatch('chain/user/init', null, { root: true })
         resolve()
       })
