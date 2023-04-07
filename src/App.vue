@@ -3,7 +3,7 @@ import { getToken } from '@/utils/auth'
 export default {
   onLaunch: function() {
     if (!getToken()) {
-      uni.navigateTo({ url: '/pages/login/index' })
+      uni.redirectTo({ url: '/pages/login/index' })
     } else {
       uni.redirectTo({ url: '/views/layout/layout' })
     }

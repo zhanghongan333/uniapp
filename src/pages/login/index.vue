@@ -19,10 +19,8 @@
 </template>
 
 <script>
-import { apiGetBanner } from '@/api/index.js'
 import { mapActions, mapState } from 'vuex'
 import { encryptData } from '@/plugins/encrypt'
-import { getToken } from '@/utils/auth'
 
 export default {
   data() {
@@ -35,14 +33,7 @@ export default {
       userInfo: this.$store.getters.userInfo
     }
   },
-  onLoad() {
-    console.log(getToken(), 'getToken()')
-    if (!getToken()) {
-      uni.navigateTo({ url: '/pages/login/index' })
-    } else {
-      uni.navigateTo({ url: '/views/layout/layout' })
-    }
-  },
+  onLoad() {},
   computed: {
     // ...mapState({
     //   userInfo: state => state.chain.user.info
@@ -55,11 +46,6 @@ export default {
     ...mapActions({
       'login': 'chain/account/login'
     }),
-    handleClick() {
-      apiGetBanner().then((res) => {
-        console.log(res)
-      })
-    },
     submit() {
       const data = { username: this.form.username }
       data.password = encryptData(this.form.password)

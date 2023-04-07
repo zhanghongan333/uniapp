@@ -17,12 +17,19 @@ function render({ container } = {}) {
   new Vue({
     store,
     i18n,
+    ...App,
     async mounted() {
-      await this.$store.dispatch('chain/account/load')
-    },
-    render: h => h(App)
+      // await this.$store.dispatch('chain/account/load')
+    }
   }).$mount(container ? container.querySelector('#app') : '#app')
 }
+render()
+// const app = new Vue({
+//   store,
+//   i18n,
+//   ...App
+// })
+// app.$mount() // 挂载 Vue 实例
 // const app = new Vue({
 //   store,
 //   i18n,
@@ -33,7 +40,7 @@ function render({ container } = {}) {
 //   render: h => h(App)
 // })
 // app.$mount()
-render()
+
 // #endif
 
 // #ifdef VUE3

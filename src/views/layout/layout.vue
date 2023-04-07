@@ -1,7 +1,7 @@
 <template>
   <view>
     <appMain :tabbar="tabbar" />
-    <tabbar />
+    <tabbar :name="name" />
   </view>
 </template>
 
@@ -15,14 +15,32 @@ export default {
   },
   data() {
     return {
-      tabbar: 'home'
+      tabbar: 'home',
+      name: 0
     }
   },
-  onLoad() {
-    uni.$on('updateTabbar', data => {
-      console.log(data, 'data')
-      this.tabbar = data
-    })
+  onLoad(option) {
+    this.init()
+    this.setTabbar(option)
+    this.updateTabbar()
+  },
+  methods: {
+    // 初始化资源
+    init() {
+
+    },
+    // 设置栏目
+    setTabbar(option) {
+      if (option && option.name) {
+        this.name = Number(option.name)
+      }
+    },
+    // 更新栏目
+    updateTabbar() {
+      uni.$on('updateTabbar', data => {
+        this.tabbar = data
+      })
+    }
   }
 
 }
