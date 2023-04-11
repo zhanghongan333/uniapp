@@ -4,6 +4,7 @@ import uView from 'uview-ui'
 import store from './store/index.js'
 import router from './router'
 import i18n from './i18n'
+import '@/assets/fonts/ibps-icon.scss'
 // #ifndef VUE3
 Vue.use(router)
 Vue.use(uView)

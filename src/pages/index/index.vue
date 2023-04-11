@@ -14,9 +14,9 @@ export default {
   },
   onLoad() {
     if (!getToken()) {
-      uni.redirectTo({ url: '/pages/login/index' })
+      uni.$e.route({ url: '/pages/login/index' })
     } else {
-      uni.redirectTo({ url: '/views/layout/layout' })
+      uni.$e.route({ url: '/views/layout/layout' })
     }
   }
 }

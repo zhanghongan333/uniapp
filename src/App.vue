@@ -2,8 +2,9 @@
 import { getToken } from '@/utils/auth'
 export default {
   onLaunch: function() {
+    console.log(getToken(), 'getToken()')
     if (!getToken()) {
-      uni.redirectTo({ url: '/pages/login/index' })
+      uni.$e.route({ url: '/pages/login/index' })
     } else {
       uni.$e.route({ type: 'redirectTo',
         url: '/views/layout/layout' })

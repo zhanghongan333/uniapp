@@ -1,8 +1,15 @@
 import route from './route'
-import { getToken } from '@/utils/auth'
+import { getToken, getRefreshToken } from '@/utils/auth'
+// 处理登出
+import { exitLogout } from './tools/index'
+import store from '@/store/index.js'
+import util from '@/utils/util.js'
 // 配置白名单
 const whiteList = ['/pages/login/index']
 
+function handleLogout(next, to, directLogin = false) {
+  exitLogout(next, to, directLogin)
+}
 const handleOverwirteRoute = () => {
   // 重写switchTab、navigateBack
   const methodToPatch = ['switchTab', 'navigateBack']
@@ -15,7 +22,8 @@ const handleOverwirteRoute = () => {
       console.log(getToken(), '2')
       if (!whiteList.includes(path) && !getToken()) {
         // 判断是否存在token，不存在重定向到登录页
-        uni.$e.route('/pages/login/index')
+        uni.$e.route({ type: 'redirectTo',
+          url: '/pages/login/index' })
       } else {
         return original.call(this, options)
       }
@@ -29,14 +37,47 @@ const install = function(Vue, options) {
   // 重写uni方法
   handleOverwirteRoute()
   // 路由拦截器
-  uni.$e.routeIntercept = (routeConfig, resolve) => {
+  uni.$e.routeIntercept = async(routeConfig, resolve) => {
     const path = routeConfig.url.split('?')[0]
-    console.log(getToken(), '1')
-    if (!whiteList.includes(path) && !getToken()) {
-      uni.$e.route('/pages/login/index')
-      return
+    const hasToken = getToken()
+    if (hasToken && hasToken !== 'undefined') {
+      if (path === '/pages/login/index') {
+        uni.$e.route({ type: 'redirectTo',
+          url: '/views/layout/layout' })
+        return
+      } else if (path === '/pages/locking/index') {
+        resolve(true)
+      } else {
+        if (util.isEmpty(store.getters.userInfo)) {
+          store.dispatch('chain/user/load').then(res => {
+            resolve(true)
+          }).catch((e) => [
+            store.dispatch('chain/account/fedLogout').then(() => {
+              uni.$e.route({ type: 'redirectTo',
+                url: '/pages/login/index' })
+              resolve(true)
+            }).catch((err) => {
+              console.error(err)
+            })
+          ])
+        }
+      }
+    } else {
+      const refreshToken = getRefreshToken()
+      if (util.isNotEmpty(refreshToken)) {
+        // 刷新token
+        await store.dispatch('chain/account/refreshToken').then(() => {
+          resolve(true)
+        }).catch(e => {
+          handleLogout()
+        })
+      }
     }
-    resolve(true)
+    // if (!whiteList.includes(path) && !getToken()) {
+    //   uni.$e.route({ type: 'redirectTo',
+    //     url: '/pages/login/index' })
+    //   return
+    // }
   }
 }
 export default {
