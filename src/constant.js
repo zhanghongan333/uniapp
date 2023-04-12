@@ -12,3 +12,14 @@ export const STORE_TOKEN_ADAPTER = 'storage'
 export const STORE_GLOBAL_KEY = replaceStr('zhan-${version}', '${version}', version)
 
 export const HEADER_TOKEN_KEY = 'X-Authorization-access_token'
+
+export const ENABLE_SSO = false
+
+export const SSO_MODE = 'url'
+
+export const SSO_LOGIN_URL = ''
+
+export const SSO_LOGOUT_URL = ''
+
+// 基础url
+export const BASE_URL = '/'

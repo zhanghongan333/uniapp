@@ -1,12 +1,12 @@
 // 维护一个更完整的config对象
 export async function requestConfig(ins, options, successHandler, failHandler, completeHandler) {
   // base
-  ins.header = options.hander || ins.header
+  ins.header = options.header || ins.header
   ins.baseUrl = options.baseUrl || ins.baseUrl
   // config base
   const config = {
     url: ins.baseUrl + options.url,
-    hander: ins.header
+    header: ins.header
   }
   console.log(ins.baseUrl + options.url)
   // 请求拦截
@@ -26,7 +26,7 @@ export async function requestConfig(ins, options, successHandler, failHandler, c
       const op = Object.assign(options, _cg)
       // 允许在请求拦截函数中对url,header进行修改
       config.url = ins.baseUrl + op.url
-      config.hander = op.hander
+      config.header = op.headers
     }
   }
   const type = options.type || 'request'
@@ -41,7 +41,7 @@ export async function requestConfig(ins, options, successHandler, failHandler, c
     config['method'] = options.method || 'POST'
     config['formData'] = options.forData
     config['fileType'] = options.fileType || 'image'
-    delete config.hander['Content-Type']
+    delete config.header['Content-Type']
   } // 文件下载不需要做额外的操作
   return config
 }

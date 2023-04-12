@@ -60,6 +60,8 @@ const install = function(Vue, options) {
               console.error(err)
             })
           ])
+        } else {
+          resolve(true)
         }
       }
     } else {
@@ -71,6 +73,13 @@ const install = function(Vue, options) {
         }).catch(e => {
           handleLogout()
         })
+      } else {
+        // 在免登录白名单，直接进入
+        if (whiteList.includes(path)) {
+          resolve(true)
+        } else {
+          handleLogout()
+        }
       }
     }
     // if (!whiteList.includes(path) && !getToken()) {

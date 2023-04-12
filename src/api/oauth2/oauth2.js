@@ -163,6 +163,26 @@ OAuth.prototype.getAccessTokenByCode = function(code, callback) {
   this.request(args, wrapper(processToken(this, callback)))
 }
 
+/**
+ * 获取用户信息 【私有方法】
+ * @param {String} refreshToken 刷新tonken
+ * @param {Function} callback 回调函数
+ */
+OAuth.prototype.refreshAccessToken = function(refreshToken, callback) {
+  const args = {
+    url: OAUTH2_URL() + '/authentication/apply',
+    data: {
+      client_id: this.clientId,
+      client_secret: this.clientSecret,
+      grant_type: 'refresh_token',
+      refresh_token: refreshToken
+    },
+    method: 'post'
+
+  }
+  this.request(args, wrapper(processToken(this, callback)))
+}
+
 OAuth.prototype.getAccessTokenByPassword = function({ username, password }, callback) {
   const args = {
     url: OAUTH2_URL() + '/authentication/apply',

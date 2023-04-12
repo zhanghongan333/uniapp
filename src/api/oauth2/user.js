@@ -1,5 +1,5 @@
 import request from '@/utils/request'
-
+import { getRefreshToken } from '@/utils/auth'
 import { OAUTH2_URL } from '@/api/baseUrl'
 
 // 1、引入ibps-oauth包
@@ -53,6 +53,20 @@ export function loginByPassword(params) {
 export function loginByCode(params) {
   return new Promise((resolve, reject) => {
     oathApi.getLoginCode(params, (error, res) => {
+      if (error) {
+        return reject(res || error)
+      }
+      resolve(res)
+    })
+  })
+}
+
+/**
+ * 刷新tonken
+ */
+export function refreshAccessToken() {
+  return new Promise((resolve, reject) => {
+    oathApi.refreshAccessToken(getRefreshToken(), function(error, res) {
       if (error) {
         return reject(res || error)
       }

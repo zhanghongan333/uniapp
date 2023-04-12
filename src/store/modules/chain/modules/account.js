@@ -1,5 +1,5 @@
 import { login } from '@/api/oauth2/user'
-import { updateToken, setUuid } from '@/utils/auth'
+import { updateToken, removeToken, removeRefreshToken, removeUuid, setUuid } from '@/utils/auth'
 
 export default {
   namespaced: true,
@@ -43,6 +43,24 @@ export default {
       // 如有必要 token 需要定时更新，默认保存一天
       updateToken(data)
       setUuid(data ? data.uid : null)
+    },
+    // 前台登出
+    fedLogout({
+      commit,
+      dispatch
+    }, vm) {
+      return new Promise(async(resolve, reject) => {
+        dispatch('chain/user/setAccount', '', { root: true })
+        dispatch('chain/user/set', {}, { root: true })
+
+        // 删除一系列cookie
+        removeToken()
+        removeUuid()
+        removeRefreshToken()
+
+        // 删除用户信息
+        resolve(vm)
+      })
     }
   }
 }

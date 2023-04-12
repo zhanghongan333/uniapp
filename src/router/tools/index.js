@@ -63,14 +63,3 @@ export function fedLogout(callback) {
   })
 }
 
-/**
- *  重置密码
- * @param {*} params
- */
-export function resetPassword(params) {
-  router.push({
-    name: 'reset',
-    params
-  })
-}
-

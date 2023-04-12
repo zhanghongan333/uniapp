@@ -1,4 +1,5 @@
-import { getEncrypt } from '@/api/oauth2/user'
+import { getUserInfo, getEncrypt } from '@/api/oauth2/user'
+import { setUuid } from '@/utils/auth'
 
 const ENABLE_PASSWORD_ENCRYPT = true
 
@@ -6,7 +7,7 @@ export default {
   namespaced: true,
   state: {
     // 用户信息
-    info: { id: '1' },
+    info: {},
     // 账号
     account: '',
     // 切换的账号
@@ -61,6 +62,30 @@ export default {
         resolve()
       })
     },
+
+    load({ state, dispatch }) {
+      return new Promise(async(resolve, reject) => {
+        // 获取当前用户账号
+        await dispatch('getAccount')
+
+        await getUserInfo().then(async response => {
+          if (!response) {
+            reject(response)
+          }
+          const useInfo = response.data
+          const user = useInfo.user
+          // 更新token信息
+          await setUuid(user.id)
+          // 设置用户信息
+          dispatch('setAccount', user.account)
+          // 设置当前
+          await dispatch('set', useInfo)
+
+          resolve(useInfo)
+        })
+      })
+    },
+
     async loadEncrypt({
       state, dispatch
     }) {
@@ -103,6 +128,17 @@ export default {
       state.encrypt = encrypt
       state.encryption = encryption
     },
+    getAccount({ state, dispatch }) {
+      return new Promise(async resolve => {
+        state.account = await dispatch('chain/db/get', {
+          dbName: 'sys',
+          path: 'account',
+          defaultValue: '',
+          user: true
+        }, { root: true })
+        resolve()
+      })
+    },
     setAccount({ state, dispatch }, account) {
       return new Promise(async resolve => {
         state.account = account
@@ -116,6 +152,5 @@ export default {
         resolve()
       })
     }
-
   }
 }

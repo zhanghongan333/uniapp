@@ -28,10 +28,10 @@ export function setToken(token, optins) {
   return Storage.set(TOKEN_STORE_KEY, token, optins, isPrefix)
 }
 /**
- * 设置刷新token
+ * 删除token
  */
-export function setRefreshToken(token, optins) {
-  return Storage.set(TOKEN_STORE_REFRESH_KEY, token, optins, isPrefix)
+export function removeToken() {
+  return Storage.remove(TOKEN_STORE_KEY, isPrefix)
 }
 /**
  * 更新tonken（包含token和 refreshToken）
@@ -50,6 +50,25 @@ export function updateToken(data) {
     domain: domain
   })
 }
+// ===========刷新token==========
+/**
+ * 获取刷新token
+ */
+export function getRefreshToken() {
+  return Storage.get(TOKEN_STORE_REFRESH_KEY, '', isPrefix)
+}
+/**
+ * 设置刷新token
+ */
+export function setRefreshToken(token, optins) {
+  return Storage.set(TOKEN_STORE_REFRESH_KEY, token, optins, isPrefix)
+}
+/**
+ * 删除刷新token
+ */
+export function removeRefreshToken() {
+  return Storage.remove(TOKEN_STORE_REFRESH_KEY, isPrefix)
+}
 
 export function getUuid() {
   return Storage.get(STORE_UUID_KEY, '', isPrefix)
@@ -57,4 +76,8 @@ export function getUuid() {
 
 export function setUuid(uuid, optins) {
   return Storage.set(STORE_UUID_KEY, uuid, optins, isPrefix)
+}
+
+export function removeUuid() {
+  return Storage.remove(STORE_UUID_KEY, isPrefix)
 }
