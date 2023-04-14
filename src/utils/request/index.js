@@ -1,6 +1,7 @@
 import Request from './request.js'
 import Utils from '@/utils/util'
 import store from '@/store'
+import I18n from '@/utils/i18n' // Internationalization 国际化
 // 验权
 import { getToken, updateToken, removeRefreshToken } from '@/utils/auth'
 import { refreshAccessToken } from '@/api/oauth2/user'
@@ -156,6 +157,38 @@ const resInterceptor = (response, config = {}) => {
   //   }
   // }
 }
+// 错误请求
+const failHandler = async(error) => {
+  uni.hideLoading()
+  await httpErrorStatusHandle(error)
+  return Promise.reject(error)
+}
+// 处理各种状态错误请求
+function httpErrorStatusHandle(error) {
+  let errorMsg = ''
+  if (error.message.includes('Network')) {
+    uni.getNetworkType({
+      success: (res) => {
+        const isConnected = true
+        if (res.networkType === 'none') {
+          this.isConnected = false
+        } else {
+          this.isConnected = true
+        }
+        errorMsg = isConnected ? I18n.t('error.network') : I18n.t('error.networkOff')
+        showErrorMessage(errorMsg)
+      }
+    })
+  } else if (error.message.includes('timeout')) {
+    errorMsg = I18n.t('error.timeout')
+    showErrorMessage(errorMsg)
+  } else {
+    const errData = handleErrorMessage(error.response)
+    errorMsg = errData.message
+    showErrorMessage(errorMsg)
+  }
+}
+
 // 处理错误消息
 export function handleErrorMessage(response) {
   let errorState
@@ -187,6 +220,45 @@ export function handleErrorMessage(response) {
       errorMsg = resData.message
       errorCause = resData.cause
     }
+    if (Utils.isNotEmpty(errorMsg)) { // 有错误消息
+      errorMsg = Utils.isNotEmpty(errorCause) ? I18n.t('error.messageCause', {
+        message: errorMsg,
+        cause: errorCause
+      }) : I18n.t('error.message', {
+        message: errorMsg
+      })
+    } else if (Utils.isNotEmpty(errorCause)) { // 只有错误原因
+      errorMsg = I18n.t('error.cause', {
+        cause: errorCause
+      })
+    } else if (I18n.te('error.status.' + errorState)) { // 有错误编码
+      errorMsg = I18n.t('error.status.' + errorState, {
+        url: config.url
+      })
+    } else { // 未知状态
+      errorMsg = errorMsg || I18n.t('error.unknown', {
+        errorState
+      })
+    }
+  } else {
+    errorState = response.status
+    errorMsg = response.statusText
+    if (I18n.te('error.status.' + errorState)) {
+      const config = response.config || {}
+      errorMsg = I18n.t('error.status.' + errorState, {
+        url: config.url
+      })
+    } else {
+      errorMsg = errorMsg || I18n.t('error.unknown', {
+        state: errorState
+      })
+    }
+  }
+  return {
+    state: errorState,
+    message: errorMsg,
+    cause: errorCause,
+    data: response.data || {}
   }
 }
 
@@ -199,6 +271,6 @@ export function showErrorMessage(errorMsg) {
   })
 }
 
-const req = new Request(config, reqInterceptor, resInterceptor)
+const req = new Request(config, reqInterceptor, resInterceptor, null, failHandler)
 
 export default req
