@@ -58,10 +58,7 @@ const resInterceptor = (response, config = {}) => {
   const resData = response.data
   const { state, message } = resData
   if (state === undefined) {
-    uni.showToast({
-      icon: 'none',
-      title: `接口异常，接口未返回[state]参数</br>接口地址:${config.url}`
-    })
+    showErrorMessage(`接口异常，接口未返回[state]参数</br>接口地址:${config.url}`)
     return response
   }
   const allowStates = [...new Set(defaultAllowStates.concat(config.allowStates || []))]
@@ -85,7 +82,8 @@ const resInterceptor = (response, config = {}) => {
       }).catch(res => {
         console.error('refreshtoken error =>', res)
         removeRefreshToken()
-        window.location.href = BASE_URL
+        uni.$e.route({ type: 'redirectTo',
+          url: `/pages/ifame/index?url=${BASE_URL}` })
       }).finally(() => {
         isRefreshing = false
       })
@@ -111,7 +109,8 @@ const resInterceptor = (response, config = {}) => {
         cancelRequest = true
         // 退出到登录页
         if (ENABLE_SSO) {
-          window.location.href = SSO_LOGOUT_URL
+          uni.$e.route({ type: 'redirectTo',
+            url: `/pages/ifame/index?url=${SSO_LOGOUT_URL}` })
         } else {
           uni.$e.route({ type: 'redirectTo',
             url: '/pages/login/index' })
@@ -125,13 +124,13 @@ const resInterceptor = (response, config = {}) => {
       url: '/pages/reset/index' })
     return Promise.reject(resData)
   } else {
-    // const errData = handleErrorMessage(response)
-    // showErrorMessage(errData.message)
-    // const err = new Error(errData.message)
-    // err.state = errData.state
-    // err.cause = errData.cause
-    // err.data = errData.data || {}
-    // return Promise.reject(err)
+    const errData = handleErrorMessage(response)
+    showErrorMessage(errData.message)
+    const err = new Error(errData.message)
+    err.state = errData.state
+    err.cause = errData.cause
+    err.data = errData.data || {}
+    return Promise.reject(err)
   }
   // if (state >= 200 && state < 300) {
   //   return resData
@@ -156,6 +155,48 @@ const resInterceptor = (response, config = {}) => {
   //     res: response
   //   }
   // }
+}
+// 处理错误消息
+export function handleErrorMessage(response) {
+  let errorState
+  let errorMsg = ''
+  let errorCause = ''
+  if (!response) {
+    errorMsg = '服务器君开小差了，请稍后再试'
+    errorState = 500
+    errorCause = errorMsg
+    return {
+      state: errorState,
+      message: errorMsg,
+      cause: errorCause
+    }
+  }
+  if (response.data) {
+    const config = response.config || {}
+    let resData = response.data || {}
+    if (config.responseType === 'arraybuffer' || config.responseType === 'blob') {
+      try {
+        const enc = new TextDecoder('utf-8')
+        resData = JSON.parse(enc.decode(new Uint8Array(resData))) // 转化成json对象
+      } catch (e) { console.error(e) }
+    }
+    if (resData.status) {
+      errorState = resData.status
+    } else {
+      errorState = resData.state
+      errorMsg = resData.message
+      errorCause = resData.cause
+    }
+  }
+}
+
+// 显示错误消息
+export function showErrorMessage(errorMsg) {
+  errorMsg = errorMsg !== null ? ('' + errorMsg).replace(/<\/?br\/?>/ig, '\n').replace(/<[^>]+>/g, '') : ''
+  uni.showToast({
+    icon: 'none',
+    title: errorMsg
+  })
 }
 
 const req = new Request(config, reqInterceptor, resInterceptor)

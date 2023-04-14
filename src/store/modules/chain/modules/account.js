@@ -1,4 +1,4 @@
-import { login } from '@/api/oauth2/user'
+import { login, refreshAccessToken } from '@/api/oauth2/user'
 import { updateToken, removeToken, removeRefreshToken, removeUuid, setUuid } from '@/utils/auth'
 
 export default {
@@ -60,6 +60,23 @@ export default {
 
         // 删除用户信息
         resolve(vm)
+      })
+    },
+    // 刷新token
+    refreshToken({
+      commit,
+      dispatch
+    }) {
+      return new Promise(async(resolve, reject) => {
+        await refreshAccessToken().then(response => {
+          const data = response.data
+          updateToken(data)
+          resolve(data)
+        }).catch(err => {
+          console.error('refreshAccessToken-err: ', err)
+          removeRefreshToken()
+          reject(err)
+        })
       })
     }
   }

@@ -9,6 +9,12 @@
 			"style": {
 				"navigationBarTitleText": "登录"
 			}
+		},
+		{
+			"path": "pages/ifame/index",
+			"style": {
+				"navigationBarTitleText": "ifame"
+			}
 		}
 	],
 	"subPackages": [

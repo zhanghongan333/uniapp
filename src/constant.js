@@ -1,3 +1,9 @@
+import _ZHANG_ from '../public/config.js'
+
+const __ZHANG_CONFIG__ = window ? window._ZHANG_ : _ZHANG_
+
+export default __ZHANG_CONFIG__
+
 export const I18N_LOCALE = 'zh-CN'
 export const I18N_ENABLE = true
 export const I18N_FALLBACK_LOCALE = 'zh-CN'
@@ -23,3 +29,18 @@ export const SSO_LOGOUT_URL = ''
 
 // 基础url
 export const BASE_URL = '/'
+
+// 浏览器标题栏格式['platform', 'company']
+export const TITLE_FORMAT = ['platform', 'company']
+// 浏览器标题-平台名称【设置后就不能国际化】
+export const TITLE_PLATFORM = ''
+// 浏览器标题-公司名称【设置后就不能国际化】
+export const TITLE_COMPANY = ''
+
+// ================API基础地址=====================
+// oauth2
+export const API_OAUTH2_BASE_URL = __ZHANG_CONFIG__.API_OAUTH2_BASE_URL || '/oauth2/v3'
+// platform
+export const API_PLATFORM_BASE_URL = __ZHANG_CONFIG__.API_PLATFORM_BASE_URL || '/platform/v3'
+// business
+export const API_BUSINESS_BASE_URL = __ZHANG_CONFIG__.API_BUSINESS_BASE_URL || '/business/v3'

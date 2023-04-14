@@ -1,15 +1,17 @@
 <script>
-import { getToken } from '@/utils/auth'
+// import { getToken } from '@/utils/auth'
 export default {
   onLaunch: function() {
-    console.log(getToken(), 'getToken()')
-    if (!getToken()) {
-      uni.$e.route({ url: '/pages/login/index' })
-    } else {
-      uni.$e.route({ type: 'redirectTo',
-        url: '/views/layout/layout' })
-      // uni.redirectTo({ url: '/views/layout/layout' })
-    }
+    uni.$e.route({ type: 'redirectTo',
+      url: '/views/layout/layout' })
+    // console.log(getToken(), 'getToken()')
+    // if (!getToken()) {
+    //   uni.$e.route({ url: '/pages/login/index' })
+    // } else {
+    //   uni.$e.route({ type: 'redirectTo',
+    //     url: '/views/layout/layout' })
+    //   // uni.redirectTo({ url: '/views/layout/layout' })
+    // }
   },
   onShow: function() {
     console.log('App Show')

@@ -5,7 +5,10 @@ import { exitLogout } from './tools/index'
 import store from '@/store/index.js'
 import util from '@/utils/util.js'
 // 配置白名单
-const whiteList = ['/pages/login/index']
+const whiteList = [
+  '/pages/login/index',
+  '/pages/ifame/index'
+]
 
 function handleLogout(next, to, directLogin = false) {
   exitLogout(next, to, directLogin)
@@ -39,7 +42,11 @@ const install = function(Vue, options) {
   // 路由拦截器
   uni.$e.routeIntercept = async(routeConfig, resolve) => {
     const path = routeConfig.url.split('?')[0]
+    // 当前页面
+    // eslint-disable-next-line no-undef
+    const pages = getCurrentPages()
     const hasToken = getToken()
+    console.log(path, pages, 'pages')
     if (hasToken && hasToken !== 'undefined') {
       if (path === '/pages/login/index') {
         uni.$e.route({ type: 'redirectTo',
@@ -48,7 +55,10 @@ const install = function(Vue, options) {
       } else if (path === '/pages/locking/index') {
         resolve(true)
       } else {
-        if (util.isEmpty(store.getters.userInfo)) {
+        // 在免登录白名单，直接进入
+        if (whiteList.includes(path)) {
+          resolve(true)
+        } else if (util.isEmpty(store.getters.userInfo)) {
           store.dispatch('chain/user/load').then(res => {
             resolve(true)
           }).catch((e) => [
@@ -68,17 +78,19 @@ const install = function(Vue, options) {
       const refreshToken = getRefreshToken()
       if (util.isNotEmpty(refreshToken)) {
         // 刷新token
-        await store.dispatch('chain/account/refreshToken').then(() => {
-          resolve(true)
+        await store.dispatch('chain/account/refreshToken').then((response) => {
+          if (util.isNotEmpty(response)) {
+            resolve(true)
+          }
         }).catch(e => {
-          handleLogout()
+          handleLogout(pages, routeConfig.url)
         })
       } else {
         // 在免登录白名单，直接进入
         if (whiteList.includes(path)) {
           resolve(true)
         } else {
-          handleLogout()
+          handleLogout(pages, routeConfig.url, true)
         }
       }
     }

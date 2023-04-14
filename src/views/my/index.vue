@@ -46,7 +46,7 @@
       </u-cell>
     </u-cell-group>
 
-    <u-button>
+    <u-button @click="handleURL">
       退出登录
     </u-button>
   </view>
@@ -63,6 +63,12 @@ export default {
     }
   },
   onLoad(option) {
+  },
+  methods: {
+    handleURL() {
+      // eslint-disable-next-line no-undef
+      plus.runtime.openUrl('http://localhost:9528/#/dashboard')
+    }
   }
 }
 </script>

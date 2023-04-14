@@ -1,5 +1,5 @@
 import store from '@/store/index.js'
-import router from '@/router'
+import util from '@/utils/util.js'
 import { ENABLE_SSO, SSO_MODE, SSO_LOGIN_URL, SSO_LOGOUT_URL } from '@/constant'
 /**
  *  跳转到登录/或退出登录
@@ -12,24 +12,21 @@ function toLogin(next, redirect, directLogin = false) {
     const url = directLogin ? SSO_LOGIN_URL : SSO_LOGOUT_URL
     // TODO:如果有地址替换,在这里处理
     if (SSO_MODE === 'iframe') { // iframe方式
-      window.top.location.href = url
+      uni.$e.route({ type: 'redirectTo',
+        url: `/pages/ifame/index?url=${url}` })
     } else {
-      window.location.href = url
+      uni.$e.route({ type: 'redirectTo',
+        url: `/pages/ifame/index?url=${url}` })
     }
   } else {
-    const nextPath = {
-      name: 'login'
-    }
-    if (redirect) {
-      nextPath['query'] = {
-        redirect
-      }
-    }
-    if (next) {
-      next(nextPath)
+    let url = next
+    if (util.isNotEmpty(next)) {
+      url = 'next'
     } else {
-      router.push(nextPath)
+      url = '/pages/login/index'
     }
+    uni.$e.route({ type: 'redirectTo',
+      url: url })
   }
 }
 /**
@@ -39,11 +36,11 @@ function toLogin(next, redirect, directLogin = false) {
  */
 export function exitLogout(next, to, directLogin = false) {
   // 前台登出
-  store.dispatch('ibps/account/fedLogout').then(() => {
-    toLogin(next, to.fullPath, directLogin)
+  store.dispatch('chain/account/fedLogout').then(() => {
+    toLogin(next, to, directLogin)
   }).catch((err) => {
     console.error(err)
-    toLogin(next, to.fullPath, directLogin)
+    toLogin(next, to, directLogin)
   })
 }
 

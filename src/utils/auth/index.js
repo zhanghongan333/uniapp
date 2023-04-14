@@ -50,6 +50,7 @@ export function updateToken(data) {
     domain: domain
   })
 }
+
 // ===========刷新token==========
 /**
  * 获取刷新token

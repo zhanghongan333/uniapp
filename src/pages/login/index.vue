@@ -13,7 +13,8 @@
           <u-input v-model="form.password" />
         </u-form-item>
       </u-form>
-      <u-button @click="submit">提交</u-button>
+      <u-button @click="submit">登录</u-button>
+      <u-button @click="handleSso">单点登录</u-button>
     </view>
   </view>
 </template>
@@ -53,6 +54,11 @@ export default {
         uni.$e.route({ type: 'redirectTo',
           url: '/views/layout/layout' })
       })
+    },
+    handleSso() {
+      const url = 'https://element.eleme.cn/#/zh-CN/component/layout'
+      uni.$e.route({ type: 'redirectTo',
+        url: `/pages/ifame/index?url=${url}` })
     }
   }
 }
