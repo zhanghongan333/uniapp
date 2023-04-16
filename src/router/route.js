@@ -114,6 +114,9 @@ class Router {
         delta
       })
     }
+    setTimeout(() => {
+      uni.hideLoading()
+    }, 1000)
   }
 }
 

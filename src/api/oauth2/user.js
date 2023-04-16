@@ -38,6 +38,19 @@ export function login(params) {
     return loginByCode(params)
   }
 }
+/**
+ * 用户登出
+ *
+ */
+export function logout(accessToken) {
+  return request.request({
+    url: OAUTH2_URL() + '/user/logout',
+    method: 'post',
+    params: {
+      access_token: accessToken
+    }
+  })
+}
 
 export function loginByPassword(params) {
   return new Promise((resolve, reject) => {

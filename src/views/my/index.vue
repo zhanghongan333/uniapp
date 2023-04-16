@@ -6,8 +6,8 @@
           slot="icon"
           class="user_avatar"
         >
-          <u-avatar />
-          <view>{{ title }}</view>
+          <u-avatar :src="avatar" />
+          <view>{{ userName }}</view>
         </view>
 
       </u-cell>
@@ -45,29 +45,75 @@
         />
       </u-cell>
     </u-cell-group>
-
-    <u-button @click="handleURL">
+    <u-modal
+      ref="uModal"
+      :title="title"
+      :content="message"
+      :show="show"
+      :show-cancel-button="true"
+      :async-close="true"
+      @confirm="confirm"
+      @cancel="cancel"
+    />
+    <u-button @click="handleLogout">
       退出登录
     </u-button>
   </view>
 </template>
 
 <script>
+import { mapState } from 'vuex'
+import { getFile } from '@/utils/image'
 export default {
   components: {
   },
   data() {
     return {
       tabbar: 0,
-      title: '管理员'
+      title: this.$t('common.dialog.title'),
+      message: this.$t('platform.my.logoutMessage'),
+      show: false,
+      defaultImage: ''
     }
   },
   onLoad(option) {
+    console.log(this.$slots.getters.userInfo)
+  },
+  computed: {
+    ...mapState('chain/user', [
+      'info'
+    ]),
+    avatar() {
+      console.log(this.info, 'this.info')
+      const photo = this.info && this.employsee ? this.info.employsee.photo : null
+      if (this.$utils.isEmpty(photo)) {
+        return this.errorImage
+      }
+      return getFile(photo)
+    },
+    errorImage() {
+      return this.defaultImage
+    },
+    userName() {
+      return this?.info?.user?.fullname || ''
+    }
   },
   methods: {
-    handleURL() {
+    handleLogout() {
       // eslint-disable-next-line no-undef
-      plus.runtime.openUrl('http://localhost:9528/#/dashboard')
+      // plus.runtime.openUrl('http://localhost:9528/#/dashboard')
+      this.show = true
+    },
+    confirm() {
+      console.log(this.$store, 'this.$store')
+      this.$store.dispatch('chain/account/logout', { vm: this }).then(() => {
+        this.show = false
+        uni.$e.route({ type: 'redirectTo',
+          url: '/pages/login/index' })
+      })
+    },
+    cancel() {
+      this.show = false
     }
   }
 }

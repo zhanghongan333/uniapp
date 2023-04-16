@@ -4,10 +4,13 @@ import uView from 'uview-ui'
 import store from './store/index.js'
 import router from './router'
 import i18n from './i18n'
+import utils from './utils/util' // utils 帮助类
 import '@/assets/fonts/ibps-icon.scss'
 // #ifndef VUE3
 Vue.use(router)
 Vue.use(uView)
+
+Vue.prototype.$utils = utils
 
 App.mpType = 'app'
 Vue.config.productionTip = false

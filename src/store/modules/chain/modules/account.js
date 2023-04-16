@@ -1,5 +1,5 @@
-import { login, refreshAccessToken } from '@/api/oauth2/user'
-import { updateToken, removeToken, removeRefreshToken, removeUuid, setUuid } from '@/utils/auth'
+import { login, logout as userLogout, refreshAccessToken } from '@/api/oauth2/user'
+import { getToken, updateToken, removeToken, removeRefreshToken, removeUuid, setUuid } from '@/utils/auth'
 
 export default {
   namespaced: true,
@@ -60,6 +60,48 @@ export default {
 
         // 删除用户信息
         resolve(vm)
+      })
+    },
+    logout({
+      commit,
+      dispatch
+    }, {
+      vm,
+      comfirm = false
+    }) {
+      return new Promise(async(resolve, reject) => [
+        dispatch('logoff', { vm }).then(() => {
+          resolve(vm)
+        }).catch(() => {
+          reject(vm)
+        })
+      ])
+    },
+    logoff({ dispatch }, { vm }) {
+      const token = getToken()
+      return new Promise(async(resolve, reject) => {
+        // 如果token过期直接登出
+        if (token === null || token === '') {
+          dispatch('fedLogout', { vm }).then(() => {
+            resolve(vm)
+          }).catch(() => {
+            reject(vm)
+          })
+        } else {
+          userLogout(token).then(() => {
+            dispatch('fedLogout', { vm }).then(() => {
+              resolve(vm)
+            }).catch(() => {
+              reject(vm)
+            })
+          }).catch(() => {
+            dispatch('fedLogout', { vm }).then(() => {
+              resolve(vm)
+            }).catch(() => {
+              reject(vm)
+            })
+          })
+        }
       })
     },
     // 刷新token
