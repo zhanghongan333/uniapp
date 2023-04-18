@@ -22,6 +22,10 @@ function render({ container } = {}) {
     store,
     i18n,
     ...App,
+    async created() {
+      // 加载接口配置
+      await this.$store.dispatch('chain/api/load')
+    },
     async mounted() {
       await this.$store.dispatch('chain/account/load')
     }

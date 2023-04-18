@@ -27,6 +27,9 @@ export default {
         await dispatch('chain/user/get', null, { root: true })
         // DB -> store 加载用户初始化配置
         await dispatch('chain/user/init', null, { root: true })
+
+        // DB -> store 持久化数据加载全局国际化
+        await dispatch('chain/language/load', null, { root: true })
         resolve()
       })
     },

@@ -4,6 +4,7 @@ const __ZHANG_CONFIG__ = window ? window._ZHANG_ : _ZHANG_
 
 export default __ZHANG_CONFIG__
 
+export const STORE_LANG_KEY = 'lang'
 export const I18N_LOCALE = 'zh-CN'
 export const I18N_ENABLE = true
 export const I18N_FALLBACK_LOCALE = 'zh-CN'
@@ -12,6 +13,7 @@ function replaceStr(...args) {
   const string = `${args[0]}`
   return args.length < 3 ? string : string.replace(args[1], args[2])
 }
+import env from '@/env'
 const version = '1.0'
 
 export const STORE_TOKEN_ADAPTER = 'storage'
@@ -29,6 +31,8 @@ export const SSO_LOGOUT_URL = ''
 
 // 基础url
 export const BASE_URL = '/'
+export const BASE_API = env.VUE_APP_BASE_API
+export const SINGLE = false
 
 // 浏览器标题栏格式['platform', 'company']
 export const TITLE_FORMAT = ['platform', 'company']

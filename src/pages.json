@@ -25,31 +25,46 @@
 					{
 						"path": "layout/layout",
 						"style": {
-							"navigationBarTitleText": "栏目"
+							"navigationBarTitleText": "栏目",
+							"mp-weixin": {
+								"animationType": "none"
+							}
 						}
 					},
 					{
 						"path": "home/index",
 						"style": {
-							"navigationBarTitleText": "工作台"
+							"navigationBarTitleText": "工作台",
+							"mp-weixin": {
+								"animationType": "none"
+							}
 						}
 					},
 					{
 						"path": "notice/index",
 						"style": {
-							"navigationBarTitleText": "我的"
+							"navigationBarTitleText": "消息",
+							"mp-weixin": {
+								"animationType": "none"
+							}
 						}
 					},
 					{
 						"path": "contacts/index",
 						"style": {
-							"navigationBarTitleText": "我的"
+							"navigationBarTitleText": "我的",
+							"mp-weixin": {
+								"animationType": "none"
+							}
 						}
 					},
 					{
 						"path": "my/index",
 						"style": {
-							"navigationBarTitleText": "我的"
+							"navigationBarTitleText": "我的",
+							"mp-weixin": {
+								"animationType": "none"
+							}
 						}
 					}
 				]

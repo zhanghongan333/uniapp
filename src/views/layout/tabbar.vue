@@ -1,5 +1,6 @@
 <template>
   <view>
+    <u-loading-page :loading="loading" />
     <u-tabbar
       :value="tabbar"
       :placeholder="false"
@@ -34,6 +35,7 @@ export default {
   },
   data() {
     return {
+      loading: false,
       tabbarData: [
         {
           text: '工作台',
@@ -62,6 +64,7 @@ export default {
     name: {
       handler: function(val, oldVal) {
         this.tabbar = Number(val)
+        this.handlechangeTabbar(this.tabbar)
       },
       immediate: true
     },
@@ -74,7 +77,7 @@ export default {
   },
   methods: {
     handlechangeTabbar(name) {
-      console.log(name, 'name')
+      this.loading = true
       let tabbar = 'home'
       switch (name) {
         case 0:
@@ -96,6 +99,9 @@ export default {
       // uni.redirectTo({ url: `/views/${tabbar}/index?name=${name}`, animationType: 'none' })
       this.tabbar = name
       uni.$emit('updateTabbar', tabbar)
+      setTimeout(() => {
+        this.loading = false
+      }, 1000)
     }
 
   }

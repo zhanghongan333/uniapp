@@ -1,5 +1,6 @@
 <script>
 // import { getToken } from '@/utils/auth'
+import { setLang } from '@/utils/auth'
 export default {
   onLaunch: function() {
     uni.$e.route({ type: 'redirectTo',
@@ -18,6 +19,17 @@ export default {
   },
   onHide: function() {
     console.log('App Hide')
+  },
+  watch: {
+    '$i18n.locale': 'i18nHandle'
+  },
+  created() {
+    this.i18nHandle(this.$i18n.locale)
+  },
+  methods: {
+    i18nHandle(val, oldVal) {
+      setLang(val)
+    }
   }
 }
 </script>

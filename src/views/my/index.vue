@@ -15,28 +15,20 @@
     <u-cell-group>
       <u-cell
         icon="lock-fill"
-        title="修改密码"
+        :title="$t('platform.my.change-password.title')"
         :is-link="true"
       />
-      <u-cell
-        title="切换语言"
-        :is-link="true"
-      >
-        <i
-          slot="icon"
-          class="ibps-icon-language"
-        />
-      </u-cell>
+      <lang-select />
     </u-cell-group>
     <view class="divider" />
     <u-cell-group>
       <u-cell
         icon="question"
-        title="帮助中心"
+        :title="$t('platform.my.help')"
         :is-link="true"
       />
       <u-cell
-        title="关于我们"
+        :title="$t('platform.my.about')"
         :is-link="true"
       >
         <i
@@ -44,6 +36,7 @@
           class="ibps-icon-logo"
         />
       </u-cell>
+      <switch-environment />
     </u-cell-group>
     <u-modal
       ref="uModal"
@@ -64,8 +57,12 @@
 <script>
 import { mapState } from 'vuex'
 import { getFile } from '@/utils/image'
+import LangSelect from './lang-select.vue'
+import SwitchEnvironment from '@/views/system/switch-environment'
 export default {
   components: {
+    LangSelect,
+    SwitchEnvironment
   },
   data() {
     return {

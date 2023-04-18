@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import VueI18n from 'vue-i18n'
+import { getLang } from '@/utils/auth'
 import { I18N_LOCALE, I18N_FALLBACK_LOCALE } from '@/constant'
 
 // 动态国际化引入
@@ -25,10 +26,16 @@ function loadLcoaleMessages() {
 }
 
 const messages = loadLcoaleMessages()
+
+Vue.prototype.$languages = Object.keys(messages).map(langlage => ({
+  label: messages[langlage]._name,
+  value: langlage
+}))
+
 const i18n = new VueI18n({
-  locale: I18N_LOCALE,
+  locale: getLang() || I18N_LOCALE,
   fallbackLocalr: I18N_FALLBACK_LOCALE,
-  messages: messages,
+  messages,
   silentFallbackWarn: true // 关闭警告提示
 })
 // 加载动态配置

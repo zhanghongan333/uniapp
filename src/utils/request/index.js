@@ -47,7 +47,7 @@ const reqInterceptor = async options => {
 // 响应拦截
 const resInterceptor = (response, config = {}) => {
   uni.hideLoading()
-  console.log(response, config, 'resInterceptor')
+  // console.log(response, config, 'resInterceptor')
   if (config.type === 'none' && config.type === 'arraybuffer' && config.type === 'blob') {
     return response
   }

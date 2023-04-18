@@ -1,6 +1,6 @@
 import Cookies from './util.cookies.js'
 import Storages from './util.storage.js'
-import { STORE_TOKEN_ADAPTER } from '@/constant'
+import { STORE_TOKEN_ADAPTER, STORE_LANG_KEY, I18N_LOCALE } from '@/constant'
 
 export const TOKEN_STORE_PREFIX = 'default'
 export const TOKEN_STORE = 'default'
@@ -81,4 +81,17 @@ export function setUuid(uuid, optins) {
 
 export function removeUuid() {
   return Storage.remove(STORE_UUID_KEY, isPrefix)
+}
+
+// 语言
+export function getLang() {
+  return Storage.get(STORE_LANG_KEY, I18N_LOCALE, isPrefix)
+}
+
+export function setLang(value, optins) {
+  return Storage.set(STORE_LANG_KEY, value, optins, isPrefix)
+}
+
+export function removeLang() {
+  return Storage.remove(STORE_LANG_KEY, isPrefix)
 }
