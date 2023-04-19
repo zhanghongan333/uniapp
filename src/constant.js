@@ -1,3 +1,4 @@
+import env from '@/env'
 import _ZHANG_ from '../public/config.js'
 
 const __ZHANG_CONFIG__ = window ? window._ZHANG_ : _ZHANG_
@@ -13,7 +14,6 @@ function replaceStr(...args) {
   const string = `${args[0]}`
   return args.length < 3 ? string : string.replace(args[1], args[2])
 }
-import env from '@/env'
 const version = '1.0'
 
 export const STORE_TOKEN_ADAPTER = 'storage'

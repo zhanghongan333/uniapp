@@ -28,7 +28,6 @@ if (process.env.NODE_ENV === 'development') {
 
   baseApi = BASE_API || (optionsEnv.length > 0 ? optionsEnv[0].value : '')
 }
-
 export default {
   namespaced: true,
   state: {
@@ -120,7 +119,7 @@ export default {
       })
       setTimeout(() => {
         uni.$e.route({ type: 'redirectTo',
-          url: '/views/layout/layout' })
+          url: '/pages/login/index' })
       }, 10)
     },
     /**

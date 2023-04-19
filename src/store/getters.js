@@ -4,5 +4,5 @@ export default {
   encrypt: state => state.chain.user.encrypt,
   encryption: state => state.chain.user.encryption,
 
-  baseApi: state => state.ibps.api.base // baseAPI地址
+  baseApi: state => state.chain.api.base // baseAPI地址
 }

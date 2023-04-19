@@ -6,12 +6,15 @@
       :is-link="true"
       @click="onOpen"
     />
+
     <u-action-sheet
       :actions="actions"
       :show="show"
       :cancel-text="$t('common.button.cancel')"
-      @select="handleSetLanguage"
-      @close="onSelect"
+      :round="30"
+      class="chain-switch-environment"
+      @select="onSelect"
+      @close="handleClose"
     />
   </view>
 </template>
@@ -85,10 +88,6 @@ export default {
         vm: this
       })
       this.show = false
-      uni.navigateTo({
-        url: '/views/layout/layout?name=3',
-        animationType: 'zoom-out'
-      })
     },
     getTitle(name) {
       const nameLower = name.toLowerCase()
@@ -101,6 +100,21 @@ export default {
 }
 </script>
 
-<style lang = "less" scoped>
+<style lang="scss">
+  .chain-switch-environment{
+    ::v-deep.u-slide-up-enter-to{
+      height: 80%;
+      overflow: scroll;
+      border-radius: 30px 30px 0 0;
+    }
 
+    // ::v-deep.u-action-sheet__cancel-text{
+
+    // }
+  }
+   .u-slide-up-enter-to{
+      height: 80%;
+      overflow: scroll;
+      border-radius: 30px 30px 0 0;
+    }
 </style>
