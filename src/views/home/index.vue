@@ -1,13 +1,23 @@
 <template>
   <view class="content">
-    <view>
-      2
+    <view
+      v-for="item in list"
+      :key="item.id"
+      class="menu"
+    >
+      <u-avatar
+        :icon="item.icon"
+        shape="square"
+        @click="handleMenu(item)"
+      />
+      <view>{{ item.name }}</view>
     </view>
   </view>
 </template>
 
 <script>
 import { mapState } from 'vuex'
+import { getMenuData } from '@/api/platform/auth/appres'
 export default {
   components: {
   },
@@ -15,7 +25,8 @@ export default {
     return {
       title: '工作台',
       userInfo: this.$store.getters.userInfo,
-      tabbar: 0
+      tabbar: 0,
+      list: []
     }
   },
   onLoad(option) {
@@ -28,20 +39,43 @@ export default {
       'info'
     ])
   },
+  mounted() {
+    this.loadMenus()
+  },
   methods: {
+    loadMenus() {
+      getMenuData().then(response => {
+        this.list = response.data
+      })
+    },
     handleClick() {
 
+    },
+    handleMenu(item) {
+      const defaultUrl = item.defaultUrl
+      uni.$e.route({ url: defaultUrl })
     }
   }
 }
 </script>
 
-<style>
+<style lang="scss">
 .content {
   display: flex;
-  flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  overflow: auto;
+  height: 100%;
+  .menu{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: 100px;
+    height: 100px;
+  }
+
 }
 
 .logo {

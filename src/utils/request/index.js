@@ -8,7 +8,8 @@ import { refreshAccessToken } from '@/api/oauth2/user'
 import { BASE_URL, HEADER_TOKEN_KEY, ENABLE_SSO, SSO_LOGOUT_URL } from '@/constant'
 import requestState from '@/constants/state'
 
-const baseUrl = 'http://lcvpn.f3322.net:3380/v353_singel'
+const baseUrl = 'http://lcvpn.f3322.net:3380/v355_singel'
+// http://lcvpn.f3322.net:3380/v353_singel
 // 'https://192.168.3.230:20000/gateway/ibps'
 
 // #ifdef APP-PLUS || MP-WEIXIN

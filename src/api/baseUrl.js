@@ -4,6 +4,8 @@ const API_OAUTH2_BASE_URL = ''
 
 const API_PLATFORM_BASE_URL = ''
 
+const API_BUSINESS_BASE_URL = ''
+
 const SINGLE = false
 
 const baseApi = ''
@@ -42,6 +44,18 @@ export const PLATFORM_BASE_URL = () => {
   return SINGLE_APP() ? '' : API_PLATFORM_BASE_URL
 }
 
+export const BUSINESS_BASE_URL = () => {
+  return SINGLE_APP() ? '' : API_BUSINESS_BASE_URL
+}
+
 export const SYSTEM_URL = () => {
   return PLATFORM_BASE_URL()
+}
+
+export const AUTH_URL = () => {
+  return PLATFORM_BASE_URL()
+}
+
+export const BPMN_URL = () => {
+  return BUSINESS_BASE_URL()
 }
