@@ -59,3 +59,11 @@ export const AUTH_URL = () => {
 export const BPMN_URL = () => {
   return BUSINESS_BASE_URL()
 }
+
+export const DATA_URL = () => {
+  return BUSINESS_BASE_URL()
+}
+
+export const FORM_URL = () => {
+  return BUSINESS_BASE_URL()
+}

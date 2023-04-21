@@ -34,37 +34,31 @@
 					{
 						"path": "home/index",
 						"style": {
-							"navigationBarTitleText": "工作台",
-							"mp-weixin": {
-								"animationType": "none"
-							}
+							"navigationBarTitleText": "工作台"
 						}
 					},
 					{
 						"path": "notice/index",
 						"style": {
-							"navigationBarTitleText": "消息",
-							"mp-weixin": {
-								"animationType": "none"
-							}
+							"navigationBarTitleText": "消息"
 						}
 					},
 					{
 						"path": "contacts/index",
 						"style": {
-							"navigationBarTitleText": "我的",
-							"mp-weixin": {
-								"animationType": "none"
-							}
+							"navigationBarTitleText": "我的"
 						}
 					},
 					{
 						"path": "my/index",
 						"style": {
-							"navigationBarTitleText": "我的",
-							"mp-weixin": {
-								"animationType": "none"
-							}
+							"navigationBarTitleText": "我的"
+						}
+					},
+					{
+						"path": "platform/data/data-tempalte-list",
+						"style": {
+							"navigationBarTitleText": "数据模板"
 						}
 					}
 				]

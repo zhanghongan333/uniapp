@@ -32,7 +32,7 @@ export default {
       show: true
     }
   },
-  onload() {
+  onLoad() {
 
   }
 }

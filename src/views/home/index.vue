@@ -4,11 +4,11 @@
       v-for="item in list"
       :key="item.id"
       class="menu"
+      @click="handleMenu(item)"
     >
       <u-avatar
         :icon="item.icon"
         shape="square"
-        @click="handleMenu(item)"
       />
       <view>{{ item.name }}</view>
     </view>

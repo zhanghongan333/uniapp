@@ -46,11 +46,18 @@ const install = function(Vue, options) {
     // eslint-disable-next-line no-undef
     const pages = getCurrentPages()
     const hasToken = getToken()
-    console.log(path, pages, 'pages')
     if (hasToken && hasToken !== 'undefined') {
       if (path === '/pages/login/index') {
-        uni.$e.route({ type: 'redirectTo',
-          url: '/views/layout/layout' })
+        // uni.$e.route({ type: 'redirectTo',
+        // url: '/views/layout/layout' })
+        return
+      } else if (path.indexOf('/d/list/') !== -1) {
+        const param = path.slice(8)
+        const isId = new RegExp('^[0-9]*$').test(param)
+        if (isId) {
+          uni.navigateTo({ url: `/views/platform/data/data-tempalte-list?id=${param}` })
+        }
+        resolve(true)
         return
       } else if (path === '/pages/locking/index') {
         resolve(true)
@@ -90,7 +97,7 @@ const install = function(Vue, options) {
         if (whiteList.includes(path)) {
           resolve(true)
         } else {
-          handleLogout(pages, routeConfig.url, true)
+          handleLogout(pages, routeConfig.url)
         }
       }
     }

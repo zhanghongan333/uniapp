@@ -101,20 +101,5 @@ export default {
 </script>
 
 <style lang="scss">
-  .chain-switch-environment{
-    ::v-deep.u-slide-up-enter-to{
-      height: 80%;
-      overflow: scroll;
-      border-radius: 30px 30px 0 0;
-    }
 
-    // ::v-deep.u-action-sheet__cancel-text{
-
-    // }
-  }
-   .u-slide-up-enter-to{
-      height: 80%;
-      overflow: scroll;
-      border-radius: 30px 30px 0 0;
-    }
 </style>

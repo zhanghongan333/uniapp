@@ -240,8 +240,8 @@ const util = {
  */
   parseData: function(data, defaultValue) {
     if (util.isNotEmpty(data)) {
-    // eslint-disable-next-line no-eval
-      return util.isPlainObject(data) || util.isArray(data) ? data : window.eval('(' + data + ')')
+      // eslint-disable-next-line no-eval
+      return util.isPlainObject(data) || util.isArray(data) ? data : window ? window.eval('(' + data + ')') : JSON.parse(data)
     } else {
       return (defaultValue || data)
     }
@@ -263,7 +263,7 @@ const util = {
   */
   evalData: function(data) {
     // eslint-disable-next-line no-eval
-    return window.eval(data)
+    return window ? window.eval(data) : data
   },
   /**
    * 格式化文件大小, 输出成带单位的字符串
@@ -349,7 +349,7 @@ const util = {
     return result
   },
   requestAnimationFrame(callbak, time = 50) {
-    let raf = window.requestAnimationFrame
+    let raf = window && window.requestAnimationFrame
     if (!raf) {
       raf = (fn) => setTimeout(fn, time)
     }
@@ -404,7 +404,9 @@ const util = {
     }
   },
   reload: function() {
-    wd.location.href = this.updateUrl(wd.location.href)
+    if (wd) {
+      wd.location.href = this.updateUrl(wd.location.href)
+    }
   },
   getNumByFieldOptions(val, fieldOptions) {
     if (util.isEmpty(val)) {
