@@ -6,7 +6,10 @@ import router from './router'
 import i18n from './i18n'
 import utils from './utils/util' // utils 帮助类
 import '@/assets/fonts/ibps-icon.scss'
+import chain from './plugins/chain'
 // #ifndef VUE3
+Vue.use(chain)
+
 Vue.use(router)
 Vue.use(uView)
 

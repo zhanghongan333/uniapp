@@ -1,9 +1,8 @@
+import Vue from 'vue'
 
 import ChainTabbar from './chain-tabbar'
+import ChainDialog from './chain-dialog'
 
-export default {
-  component: {
-    ChainTabbar
-  }
-}
+Vue.component('ChainDialog', ChainDialog)
+Vue.component('ChainTabbar', ChainTabbar)
 

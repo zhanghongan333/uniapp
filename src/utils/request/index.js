@@ -167,7 +167,7 @@ const failHandler = async(error) => {
 // 处理各种状态错误请求
 function httpErrorStatusHandle(error) {
   let errorMsg = ''
-  if (error.message.includes('Network')) {
+  if (error && error.message && error.message.includes('Network')) {
     uni.getNetworkType({
       success: (res) => {
         const isConnected = true
@@ -180,7 +180,7 @@ function httpErrorStatusHandle(error) {
         showErrorMessage(errorMsg)
       }
     })
-  } else if (error.message.includes('timeout')) {
+  } else if (error && error.message && error.message.includes('timeout')) {
     errorMsg = I18n.t('error.timeout')
     showErrorMessage(errorMsg)
   } else {

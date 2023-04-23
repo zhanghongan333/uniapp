@@ -20,6 +20,7 @@ function toLogin(next, redirect, directLogin = false) {
     }
   } else {
     let url = next
+    console.log(next, 'next')
     if (util.isNotEmpty(next)) {
       url = 'next'
     } else {
