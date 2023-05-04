@@ -7,6 +7,12 @@ import i18n from './i18n'
 import utils from './utils/util' // utils 帮助类
 import '@/assets/fonts/ibps-icon.scss'
 import chain from './plugins/chain'
+import formGrid from './business/platform/form/dynamic-form/form-grid'
+import formItem from './business/platform/form/dynamic-form/form-item'
+import formField from './business/platform/form/dynamic-form/form-field'
+Vue.component('form-grid', formGrid)
+Vue.component('form-item', formItem)
+Vue.component('form-field', formField)
 // #ifndef VUE3
 Vue.use(chain)
 
@@ -14,8 +20,6 @@ Vue.use(router)
 Vue.use(uView)
 
 Vue.prototype.$utils = utils
-
-App.mpType = 'app'
 Vue.config.productionTip = false
 
 // let instance = null
@@ -34,6 +38,11 @@ function render({ container } = {}) {
     }
   }).$mount(container ? container.querySelector('#app') : '#app')
 }
+
+Vue.config.productionTip = false
+
+App.mpType = 'app'
+
 render()
 // const app = new Vue({
 //   store,

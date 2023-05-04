@@ -1,3 +1,5 @@
+import { appendQuery } from '@/utils/url.js'
+import Utils from '@/utils/util'
 // 维护一个更完整的config对象
 export async function requestConfig(ins, options, successHandler, failHandler, completeHandler) {
   // base
@@ -31,7 +33,13 @@ export async function requestConfig(ins, options, successHandler, failHandler, c
   }
   const type = options.type || 'request'
   if (type === 'request') {
-    config['data'] = options.data || options.params || {}
+    if (Utils.isNotEmpty(options.params)) {
+      config.url = appendQuery(config.url, options.params)
+    } else if (Utils.isNotEmpty(options.data)) {
+      config['data'] = options.data || {}
+    } else {
+      config['data'] = options.data || options.params || {}
+    }
     config['method'] = options.method || 'GET'
     config['dataType'] = options.dataType || 'json'
     config['responseType'] = options.responseType || 'text'

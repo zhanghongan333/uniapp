@@ -1,7 +1,6 @@
 <template>
   <view>
-    {{ formDef }}
-    <dynamic-form
+    <dynamicForm
       :form-def="formDef"
     />
   </view>
@@ -27,7 +26,6 @@ export default {
     }
   },
   onLoad() {
-
   }
 }
 </script>

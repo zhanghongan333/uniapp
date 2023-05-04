@@ -36,10 +36,12 @@ module.exports = {
   // it is base on https://github.com/vuejs/eslint-config-vue
   rules: {
     '@typescript-eslint/no-non-null-assertion': 'off',
+    // 关闭名称校验
     'vue/multi-word-component-names': 'off',
     'vue/singleline-html-element-content-newline': 'off',
     'vue/multiline-html-element-content-newline': 'off',
     'vue/require-default-prop': 'off',
+    'vue/component-definition-name-casing': ['PascalCase' | 'kebab-case'],
 
     'vue/no-v-html': 'off',
     'accessor-pairs': 2,

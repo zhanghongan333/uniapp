@@ -26,7 +26,7 @@ if (
     plugins.push([
       require('@dcloudio/vue-cli-plugin-hbuilderx/packages/babel-plugin-console'),
       {
-        file (file) {
+        file(file) {
           file = normalizePath(file)
           if (file.indexOf(input) === 0) {
             return path.relative(input, file)
@@ -72,7 +72,7 @@ const UNI_H5_TEST = '**/@dcloudio/uni-h5/dist/index.umd.min.js'
 if (process.env.NODE_ENV === 'production') {
   config.overrides = [{
     test: UNI_H5_TEST,
-    compact: true,
+    compact: true
   }]
 } else {
   config.ignore = [UNI_H5_TEST]

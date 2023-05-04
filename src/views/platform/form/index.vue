@@ -1,22 +1,22 @@
 <template>
   <view>
-    <ChainDialog :visible="visible">
-      <Formrender
+    <chain-dialog :visible="visible">
+      <formrender
         :form-def="formDef"
       />
-    </ChainDialog>
+    </chain-dialog>
   </view>
 </template>
 
 <script>
-import ChainDialog from '@/components/chain-dialog'
+import chainDialog from '@/components/chain-dialog'
 import { getFormData } from '@/api/platform/form/formDef'
 
-import Formrender from '@/business/platform/form/formrender.vue'
+import formrender from '@/business/platform/form/formrender.vue'
 export default {
   components: {
-    ChainDialog,
-    Formrender
+    chainDialog,
+    formrender
   },
   props: {
     dialogVisible: {
@@ -49,13 +49,16 @@ export default {
     dialogVisible: {
       handler: function(val, oldVal) {
         this.visible = val
+        if (val) {
+          this.handleOpen()
+        }
       },
       immediate: true
     }
   },
   onLoad() {
     uni.$on('close', this.handleClose)
-    uni.$on('open', this.handleOpen)
+    // uni.$on('chain', this.handleOpen)
   },
   methods: {
     handleClose(val) {
@@ -77,7 +80,6 @@ export default {
       }).then(response => {
         const data = response.data
         // 从后台获取表单定义数据
-
         this.formDef = this.$utils.parseData(data.form) || {}
         console.log(this.formDef, data)
       })

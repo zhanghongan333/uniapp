@@ -2,7 +2,6 @@ import '@/components'
 // 平台配置文件
 import { BASE_URL } from '@/constant'
 import env from '@/env'
-
 export default {
   async install(Vue, options) {
     // 设置为 false 以阻止 vue 在启动时生成生产提示。

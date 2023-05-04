@@ -41,7 +41,7 @@ export default {
   },
   methods: {
     open() {
-      uni.$emit('open')
+      uni.$emit('chain')
     },
     close() {
       this.show = false

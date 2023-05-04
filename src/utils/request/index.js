@@ -5,9 +5,9 @@ import I18n from '@/utils/i18n' // Internationalization 国际化
 // 验权
 import { getToken, updateToken, removeRefreshToken } from '@/utils/auth'
 import { refreshAccessToken } from '@/api/oauth2/user'
-import { BASE_URL, HEADER_TOKEN_KEY, ENABLE_SSO, SSO_LOGOUT_URL } from '@/constant'
+import { HEADER_TOKEN_KEY, ENABLE_SSO, SSO_LOGOUT_URL } from '@/constant'
 import requestState from '@/constants/state'
-
+import { BASE_API } from '@/api/baseUrl'
 const baseUrl = 'http://lcvpn.f3322.net:3380/v355_singel'
 // http://lcvpn.f3322.net:3380/v353_singel
 // 'https://192.168.3.230:20000/gateway/ibps'
@@ -38,6 +38,7 @@ const defaultAllowStates = [
 
 // 请求拦截
 const reqInterceptor = async options => {
+  console.log(BASE_API(), 'BASE_API')
   uni.showLoading({
     title: '加载中...'
   })
@@ -85,7 +86,7 @@ const resInterceptor = (response, config = {}) => {
         console.error('refreshtoken error =>', res)
         removeRefreshToken()
         uni.$e.route({ type: 'redirectTo',
-          url: `/pages/ifame/index?url=${BASE_URL}` })
+          url: `/pages/login/index` })
       }).finally(() => {
         isRefreshing = false
       })

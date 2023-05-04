@@ -1,7 +1,7 @@
 <template>
   <view>
     <u-button @click="handleForm">去表单</u-button>
-    <form-dialog
+    <formrender-dialog
       :dialog-visible="visible"
       :params="formrenderParams"
     />
@@ -11,10 +11,10 @@
 <script>
 import { getBuildDataById } from '@/api/platform/data/dataTemplate'
 import { getFormDataByFormKey } from '@/api/platform/form/formDef'
-import FormDialog from '@/views/platform/form/index.vue'
+import FormrenderDialog from '@/views/platform/form'
 export default {
   components: {
-    FormDialog
+    FormrenderDialog
   },
   data() {
     return {
