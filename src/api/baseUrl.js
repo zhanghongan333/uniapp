@@ -1,10 +1,10 @@
 import store from '@/store'
 // /oauth2/v3
-const API_OAUTH2_BASE_URL = ''
+const API_OAUTH2_BASE_URL = '/oauth2/v3'
 
-const API_PLATFORM_BASE_URL = ''
+const API_PLATFORM_BASE_URL = '/platform/v3'
 
-const API_BUSINESS_BASE_URL = ''
+const API_BUSINESS_BASE_URL = '/business/v3'
 
 const SINGLE = false
 

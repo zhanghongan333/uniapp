@@ -25,7 +25,7 @@ let cancelRequest = false
 let cancelRequestTime = 0
 // 重试队列，每一项将是一个待执行的函数形式
 let requests = []
-
+console.log(BASE_API())
 const config = {
   baseUrl: baseUrl
 }
@@ -38,7 +38,8 @@ const defaultAllowStates = [
 
 // 请求拦截
 const reqInterceptor = async options => {
-  console.log(BASE_API(), 'BASE_API')
+  options.baseUrl = BASE_API()
+  console.log(options)
   uni.showLoading({
     title: '加载中...'
   })

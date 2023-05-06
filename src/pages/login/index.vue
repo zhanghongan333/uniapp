@@ -15,6 +15,9 @@
       </u-form>
       <u-button @click="submit">登录</u-button>
       <u-button @click="handleSso">单点登录</u-button>
+      <u-cell-group>
+        <switch-environment />
+      </u-cell-group>
     </view>
   </view>
 </template>
@@ -22,7 +25,6 @@
 <script>
 import { mapActions, mapState } from 'vuex'
 import { encryptData } from '@/plugins/encrypt'
-
 export default {
   data() {
     return {

@@ -10,9 +10,11 @@ import chain from './plugins/chain'
 import formGrid from './business/platform/form/dynamic-form/form-grid'
 import formItem from './business/platform/form/dynamic-form/form-item'
 import formField from './business/platform/form/dynamic-form/form-field'
+import switchEnvironment from './views/system/switch-environment'
 Vue.component('form-grid', formGrid)
 Vue.component('form-item', formItem)
 Vue.component('form-field', formField)
+Vue.component('switch-environment', switchEnvironment)
 // #ifndef VUE3
 Vue.use(chain)
 

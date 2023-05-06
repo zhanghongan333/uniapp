@@ -27,7 +27,8 @@ export async function requestConfig(ins, options, successHandler, failHandler, c
     if (Object.keys(_cg).length !== 0) {
       const op = Object.assign(options, _cg)
       // 允许在请求拦截函数中对url,header进行修改
-      config.url = ins.baseUrl + op.url
+      console.log(op, ins.baseUrl)
+      config.url = op.baseUrl ? op.baseUrl + op.url : ins.baseUrl + op.url
       config.header = op.headers
     }
   }

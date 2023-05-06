@@ -6,7 +6,6 @@
       :is-link="true"
       @click="onOpen"
     />
-
     <u-action-sheet
       :actions="actions"
       :show="show"
